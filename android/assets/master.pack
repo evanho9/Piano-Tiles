@@ -1,0 +1,75 @@
+
+master.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+background
+  rotate: false
+  xy: 1, 292
+  size: 1024, 2048
+  orig: 1024, 2048
+  offset: 0, 0
+  index: -1
+buttontemplate
+  rotate: false
+  xy: 1, 34
+  size: 1024, 256
+  orig: 1024, 256
+  offset: 0, 0
+  index: -1
+greentile
+  rotate: false
+  xy: 1027, 2020
+  size: 225, 320
+  orig: 225, 320
+  offset: 0, 0
+  index: -1
+redtile
+  rotate: false
+  xy: 1027, 1698
+  size: 225, 320
+  orig: 225, 320
+  offset: 0, 0
+  index: -1
+tile
+  rotate: false
+  xy: 1027, 1376
+  size: 225, 320
+  orig: 225, 320
+  offset: 0, 0
+  index: -1
+yellowtile
+  rotate: false
+  xy: 1027, 1054
+  size: 225, 320
+  orig: 225, 320
+  offset: 0, 0
+  index: -1
+playbutton
+  rotate: false
+  xy: 1027, 842
+  size: 299, 210
+  orig: 299, 210
+  offset: 0, 0
+  index: -1
+creditsbutton
+  rotate: false
+  xy: 1, 1
+  size: 125, 31
+  orig: 150, 50
+  offset: 3, 5
+  index: -1
+backbutton
+  rotate: false
+  xy: 1254, 2294
+  size: 48, 46
+  orig: 48, 48
+  offset: 0, 1
+  index: -1
+pausebutton
+  rotate: false
+  xy: 1027, 810
+  size: 28, 30
+  orig: 48, 48
+  offset: 10, 9
+  index: -1
