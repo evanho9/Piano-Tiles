@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evanho9.pianotiles.gameobject.Tile;
+import com.evanho9.pianotiles.util.Chord;
 import com.evanho9.pianotiles.util.ShapeColor;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class GameLogic {
     private OrthographicCamera camera;
     private Viewport viewport;
     private BitmapFont font;
+    private Sound currentChord;
+    private int chordProgression;
 
     //game stat keepers
     private int tilesSpawned;
@@ -81,7 +84,13 @@ public class GameLogic {
                 if (tiles.indexOf(tile) == 0) {
                     score += 100;
                     tilesMatched++;
-                    tile.playSound();
+                    if (tilesMatched % 4 == 0) {
+                        progressChord();
+                        currentChord.play();
+                    }
+                    else {
+                        tile.playSound();
+                    }
                     tiles.remove(0);
                 }
                 return false;
@@ -126,9 +135,19 @@ public class GameLogic {
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 40;
         parameter.color = Color.BLACK;
-
         font = generator.generateFont(parameter);
         font.setUseIntegerPositions(false);
+    }
+
+    public void progressChord() {
+        if (chordProgression <= 3) {
+            chordProgression++;
+            currentChord = Chord.values()[chordProgression].getSound();
+        }
+        else {
+            chordProgression = 0;
+            currentChord = Chord.values()[chordProgression].getSound();
+        }
     }
 
     public ArrayList<Tile> getTiles() {
@@ -154,7 +173,6 @@ public class GameLogic {
     public void update() {
         Gdx.input.setInputProcessor(stage);
         stage.act();
-
         delta++;
         if (delta >= delay) {
             delta = 0;
@@ -166,11 +184,9 @@ public class GameLogic {
                 }
             }
         }
-
         for (Tile tile : tiles) {
             tile.setY(tile.getY()- velocity);
         }
-
     }
 
     public void render(SpriteBatch batch) {
