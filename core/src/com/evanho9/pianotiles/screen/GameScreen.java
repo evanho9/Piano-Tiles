@@ -9,7 +9,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evanho9.pianotiles.game.GameLogic;
@@ -36,10 +40,12 @@ public class GameScreen implements Screen {
     private TextureRegion background;
     private Stage hud;
 
+    private ImageButton deathButton;
+
 
     public GameScreen(PianoTiles pianoTiles) {
         this.pianoTiles = pianoTiles;
-        gameLogic = new GameLogic(pianoTiles.getAssetManager());
+        gameLogic = new GameLogic(pianoTiles);
         initUtils();
         initAssets();
         initHUD();
@@ -63,6 +69,25 @@ public class GameScreen implements Screen {
 
     public void initHUD() {
         hud = new Stage(viewport, batch);
+
+        Skin deathButtonSkin= new Skin();
+        deathButtonSkin.addRegions(pianoTiles.getAssetManager().get(PianoTiles.MASTER_PATH, TextureAtlas.class));
+        deathButton = new ImageButton(deathButtonSkin.getDrawable("playbutton"));
+        deathButton.setSize(PianoTiles.WORLD_WIDTH, PianoTiles.WORLD_HEIGHT);
+        deathButton.setPosition(0,0);
+        deathButton.setVisible(false);
+        deathButton.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                pianoTiles.setScreen(new DeathScreen(pianoTiles));
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+
+            }
+    });
+        hud.addActor(deathButton);
     }
 
     @Override
@@ -85,7 +110,7 @@ public class GameScreen implements Screen {
         gameLogic.render(batch);
 
         if (gameLogic.getTiles().size() > 0 && gameLogic.getTiles().get(0).getY()+gameLogic.getTiles().get(0).getHeight() <= 0) {
-            pianoTiles.setScreen(new DeathScreen(pianoTiles, gameLogic));
+            pianoTiles.setScreen(new DeathScreen(pianoTiles));
         }
     }
 

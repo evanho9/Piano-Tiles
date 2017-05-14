@@ -33,9 +33,9 @@ public class DeathScreen implements Screen {
     private ImageButton replayButton;
     private TextureRegion background;
 
-    public DeathScreen(PianoTiles pianoTiles, GameLogic gameLogic) {
+    public DeathScreen(PianoTiles pianoTiles) {
         this.pianoTiles = pianoTiles;
-        this.gameLogic = gameLogic;
+        //this.gameLogic = gameLogic;
         background = pianoTiles.getAssetManager().get(PianoTiles.MASTER_PATH, TextureAtlas.class).findRegion("background");
         initHUD();
     }
@@ -79,9 +79,9 @@ public class DeathScreen implements Screen {
 
         hud.getBatch().begin();
         //hud.getBatch().draw(background, 0 ,0, PianoTiles.WORLD_WIDTH, PianoTiles.WORLD_HEIGHT);
-        gameLogic.getFont().draw(hud.getBatch(), "Score: " + gameLogic.getScore(), PianoTiles.WORLD_WIDTH/12, 9*PianoTiles.WORLD_HEIGHT/10);
-        gameLogic.getFont().draw(hud.getBatch(), "Tiles Matched: " + gameLogic.getTilesMatched(), PianoTiles.WORLD_WIDTH/12, 8*PianoTiles.WORLD_HEIGHT/10);
-        gameLogic.getFont().draw(hud.getBatch(), "Tiles Spawned: " + gameLogic.getTilesSpawned(), PianoTiles.WORLD_WIDTH/12, 7*PianoTiles.WORLD_HEIGHT/10);
+        //gameLogic.getFont().draw(hud.getBatch(), "Score: " + gameLogic.getScore(), PianoTiles.WORLD_WIDTH/12, 9*PianoTiles.WORLD_HEIGHT/10);
+        //gameLogic.getFont().draw(hud.getBatch(), "Tiles Matched: " + gameLogic.getTilesMatched(), PianoTiles.WORLD_WIDTH/12, 8*PianoTiles.WORLD_HEIGHT/10);
+        //gameLogic.getFont().draw(hud.getBatch(), "Tiles Spawned: " + gameLogic.getTilesSpawned(), PianoTiles.WORLD_WIDTH/12, 7*PianoTiles.WORLD_HEIGHT/10);
         hud.getBatch().end();
         hud.draw();
 

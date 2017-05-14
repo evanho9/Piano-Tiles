@@ -12,9 +12,11 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evanho9.pianotiles.gameobject.Tile;
+import com.evanho9.pianotiles.screen.DeathScreen;
 import com.evanho9.pianotiles.util.Chord;
 import com.evanho9.pianotiles.util.ShapeColor;
 
@@ -30,6 +32,7 @@ public class GameLogic {
     public static final float INCREASE_FACTOR = 1.01f;
 
     //game utils
+    private PianoTiles pianoTiles;
     private AssetManager assetManager;
     private TextureAtlas atlas;
     private SpriteBatch batch;
@@ -51,12 +54,12 @@ public class GameLogic {
     public float delay = 40;
     private ArrayList<Tile> tiles;
 
-    public GameLogic(AssetManager assetManager) {
-        this.assetManager = assetManager;
+    public GameLogic(PianoTiles pianoTiles) {
+        this.assetManager = pianoTiles.getAssetManager();
         this.atlas = assetManager.get(PianoTiles.MASTER_PATH, TextureAtlas.class);
 
         batch = new SpriteBatch();
-
+        this.pianoTiles = pianoTiles;
         tiles = new ArrayList<Tile>();
         tilesSpawned = 0;
         score = 0;
@@ -71,6 +74,7 @@ public class GameLogic {
         viewport = new StretchViewport(PianoTiles.WORLD_WIDTH, PianoTiles.WORLD_HEIGHT, camera);
         viewport.apply(true);
         camera.update();
+
         stage = new Stage(viewport, batch);
     }
 
@@ -84,15 +88,19 @@ public class GameLogic {
                 if (tiles.indexOf(tile) == 0) {
                     score += 100;
                     tilesMatched++;
-                    if (tilesMatched % 4 == 0) {
+                    /**if (tilesMatched % 4 == 0) {
                         progressChord();
                         currentChord.play();
                     }
                     else {
                         tile.playSound();
-                    }
+                    }**/
                     tiles.remove(0);
                 }
+                else {
+                    pianoTiles.setScreen(new DeathScreen(pianoTiles));
+                }
+
                 return false;
             }
 
@@ -138,6 +146,8 @@ public class GameLogic {
         font = generator.generateFont(parameter);
         font.setUseIntegerPositions(false);
     }
+
+
 
     public void progressChord() {
         if (chordProgression <= 3) {
