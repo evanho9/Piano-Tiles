@@ -24,6 +24,7 @@ public class PianoTiles extends Game {
     public final static int WORLD_HEIGHT = 1120;
 
 	private AssetManager assetManager;
+    private GameLogic gameLogic;
 
 	@Override
 	public void create () {
@@ -54,4 +55,13 @@ public class PianoTiles extends Game {
 	public AssetManager getAssetManager() {
         return assetManager;
 	}
+
+	public void setGameLogic(GameLogic gameLogic) {
+        this.gameLogic = gameLogic;
+    }
+
+    public GameLogic getGameLogic() {
+        return gameLogic;
+    }
+
 }

@@ -46,6 +46,7 @@ public class GameScreen implements Screen {
     public GameScreen(PianoTiles pianoTiles) {
         this.pianoTiles = pianoTiles;
         gameLogic = new GameLogic(pianoTiles);
+        pianoTiles.setGameLogic(gameLogic);
         initUtils();
         initAssets();
         initHUD();
@@ -69,25 +70,6 @@ public class GameScreen implements Screen {
 
     public void initHUD() {
         hud = new Stage(viewport, batch);
-
-        Skin deathButtonSkin= new Skin();
-        deathButtonSkin.addRegions(pianoTiles.getAssetManager().get(PianoTiles.MASTER_PATH, TextureAtlas.class));
-        deathButton = new ImageButton(deathButtonSkin.getDrawable("playbutton"));
-        deathButton.setSize(PianoTiles.WORLD_WIDTH, PianoTiles.WORLD_HEIGHT);
-        deathButton.setPosition(0,0);
-        deathButton.setVisible(false);
-        deathButton.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                pianoTiles.setScreen(new DeathScreen(pianoTiles));
-                return true;
-            }
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
-            }
-    });
-        hud.addActor(deathButton);
     }
 
     @Override
@@ -101,6 +83,10 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         delta = Math.min(delta, 0.03f);
+
+        Gdx.input.setInputProcessor(hud);
+        hud.draw();
+        hud.act();
 
         batch.begin();
         //batch.draw(background, 0, 0, PianoTiles.WORLD_WIDTH, PianoTiles.WORLD_HEIGHT);

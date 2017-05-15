@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evanho9.pianotiles.gameobject.Tile;
@@ -74,8 +75,26 @@ public class GameLogic {
         viewport = new StretchViewport(PianoTiles.WORLD_WIDTH, PianoTiles.WORLD_HEIGHT, camera);
         viewport.apply(true);
         camera.update();
-
         stage = new Stage(viewport, batch);
+
+        Skin deathButtonSkin= new Skin();
+        deathButtonSkin.addRegions(pianoTiles.getAssetManager().get(PianoTiles.MASTER_PATH, TextureAtlas.class));
+        ImageButton deathButton = new ImageButton(deathButtonSkin.getDrawable("deathbutton"));
+        deathButton.setSize(PianoTiles.WORLD_WIDTH, PianoTiles.WORLD_HEIGHT);
+        deathButton.setPosition(0,0);
+        deathButton.setVisible(true);
+        deathButton.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                pianoTiles.setScreen(new DeathScreen(pianoTiles));
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+
+            }
+        });
+        stage.addActor(deathButton);
     }
 
     public void addTile() {
@@ -146,8 +165,6 @@ public class GameLogic {
         font = generator.generateFont(parameter);
         font.setUseIntegerPositions(false);
     }
-
-
 
     public void progressChord() {
         if (chordProgression <= 3) {
