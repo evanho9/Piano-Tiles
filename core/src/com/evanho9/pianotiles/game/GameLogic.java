@@ -5,15 +5,18 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evanho9.pianotiles.gameobject.Tile;
@@ -79,9 +82,9 @@ public class GameLogic {
 
         Skin deathButtonSkin= new Skin();
         deathButtonSkin.addRegions(pianoTiles.getAssetManager().get(PianoTiles.MASTER_PATH, TextureAtlas.class));
-        ImageButton deathButton = new ImageButton(deathButtonSkin.getDrawable("deathbutton"));
+        ImageButton deathButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("raw/deathbutton.png")))));
         deathButton.setSize(PianoTiles.WORLD_WIDTH, PianoTiles.WORLD_HEIGHT);
-        deathButton.setPosition(0,0);
+        deathButton.setPosition(0, 0);
         deathButton.setVisible(true);
         deathButton.addListener(new InputListener() {
             @Override
