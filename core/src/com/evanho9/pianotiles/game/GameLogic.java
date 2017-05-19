@@ -117,6 +117,7 @@ public class GameLogic {
                     else {
                         tile.playSound();
                     }**/
+                    tile.playSound();
                     tiles.remove(0);
                 }
                 else {
@@ -209,7 +210,7 @@ public class GameLogic {
             addTile();
             if (velocity <= 40) {
                 velocity *= INCREASE_FACTOR;
-                if (delay >= 20) {
+                if (delay >= 17) {
                     delay -= INCREASE_FACTOR;
                 }
             }
