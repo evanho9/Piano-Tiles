@@ -95,7 +95,7 @@ public class MainMenuScreen implements Screen {
         });
         TextureRegion creditsButtonTextureRegion = assetManager.get(PianoTiles.MASTER_PATH, TextureAtlas.class).findRegion("creditsbutton");
         Drawable creditsButtonDrawable = new TextureRegionDrawable(creditsButtonTextureRegion);
-        ImageButton creditsButton = new ImageButton(creditsButtonDrawable);
+        /**ImageButton creditsButton = new ImageButton(creditsButtonDrawable);
         creditsButton.setSize(PianoTiles.WORLD_WIDTH/4, PianoTiles.WORLD_HEIGHT/4);
         creditsButton.setPosition(0,0);
         creditsButton.addListener(new ClickListener() {
@@ -104,10 +104,10 @@ public class MainMenuScreen implements Screen {
                 pianoTiles.setScreen(new GameScreen(pianoTiles));
                 //mainMenuMusic.stop();
             }
-        });
+        });**/
 
         stage.addActor(playButton);
-        stage.addActor(creditsButton);
+        //stage.addActor(creditsButton);
         Gdx.input.setInputProcessor(stage);
     }
 
