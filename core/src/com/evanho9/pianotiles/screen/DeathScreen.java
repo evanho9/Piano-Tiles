@@ -66,8 +66,6 @@ public class DeathScreen implements Screen {
 
     @Override
     public void show() {
-        hud.getRoot().getColor().a = 0;
-        hud.getRoot().addAction(fadeIn(1.5f));
     }
 
     @Override
